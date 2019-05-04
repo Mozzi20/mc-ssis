@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <div th:replace="template :: head"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js"
+    integrity="sha256-NGC9JEuTWN4GhTj091wctgjzftr+8WNDmw0H8J5YPYE=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/gh/InventivetalentDev/MineRender@1.1.0/dist/skin.min.js"></script>
+</head>
+
+<body>
+  <header th:replace="template :: header"></header>
+  <div class="container">
+    <h1>Profil</h1>
+    <div class="row">
+      <form class="col-4" th:action="@{/user}" method="post">
+        <div class="form-group">
+          <input class="form-control" placeholder="Minecraft användarnamn" id="username" type="text" name="username"
+            th:value="${username}">
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="" type="checkbox" name="confirm" id="confirm">
+          <label for="check">Det är mitt konto och endast jag kommer att spela på det.</label>
+        </div>
+        <p th:text="${message}"></p>
+        <button class="form-control" type="submit">Spara</button>
+      </form>
+      <div id="skinContainer" class="col"></div>
+    </div>
+
+  </div>
+  <footer th:replace="template :: footer"></footer>
+  <script th:inline="javascript">
+    var skinRender = new SkinRender({
+      canvas: {
+        height: window.innerHeight * 3 / 5,
+        width: window.innerWidth / 3
+      },
+      controls: {
+        zoom: false,
+        pan: false,
+        rotate: true
+      }
+    }, document.getElementById("skinContainer"));
+    skinRender.render(/*[[${username}]]*/);
+  </script>
+</body>
+
+</html>

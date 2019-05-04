@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <div th:replace="template :: head"></div>
+</head>
+
+<body>
+  <header th:replace="template :: header"></header>
+  <div class="container">
+    <p>
+      För att se till att endast elever på SSIS har tillgång till Minecraft-servern måste alla registrera sig. Det kan
+      du göra genom att logga in och sedan gå in på profil där du kan registrera ditt Minecraft-konto.
+    </p>
+    <p>
+      Just nu finns det <span th:text="${userCount}"></span> registrerade användare!
+    </p>
+    <p>
+      Servern administreras av Togethernet.
+    </p>
+  </div>
+  <footer th:replace="template :: footer"></footer>
+</body>
+
+</html>
