@@ -13,9 +13,4 @@ public class McSsisApplication implements WebMvcConfigurer {
 		SpringApplication.run(McSsisApplication.class, args);
 	}
 
-	@Bean
-	RestTemplate restTemplate() {
-		return new RestTemplate();
-	}
-
 }

@@ -14,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,7 +26,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="users")
+@Table(
+	name="users",
+	uniqueConstraints = @UniqueConstraint(columnNames="username")
+)
 @Getter
 @Setter
 public class User implements OidcUser {
@@ -54,7 +58,6 @@ public class User implements OidcUser {
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.toString())).collect(Collectors.toSet());
 	}
 
-	// what is this
 	@Override
 	public Map<String, Object> getAttributes() {
 		return null;

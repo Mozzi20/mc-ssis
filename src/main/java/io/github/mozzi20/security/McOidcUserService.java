@@ -30,7 +30,7 @@ public class McOidcUserService extends OidcUserService {
 		String sub = userRequest.getIdToken().getSubject();
 		try {
 			return userRepo.findById(sub).orElseThrow(() -> new UsernameNotFoundException("user not found"));
-		} catch (Exception e) {
+		} catch (UsernameNotFoundException e) {
 			OidcUser oidcUser = super.loadUser(userRequest);
 			User user = new User();
 			user.setSub(sub);

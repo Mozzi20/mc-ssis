@@ -12,6 +12,11 @@ public class UserService {
 	@Autowired
 	private UserRepo userRepo;
 	
+	
+	boolean usernameExists(String username) {
+		return userRepo.existsByUsername(username);
+	}
+	
 	void updateUsername(String username) {
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		user.setUsername(username.trim());
