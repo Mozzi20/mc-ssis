@@ -11,11 +11,15 @@
   <table class="table thead-dark table-bordered">
     <tr>
       <th>Email</th>
+      <th>Namn</th>
+      <th>Klass</th>
       <th>Minecraft-användarnamn</th>
       <th>Registrerings datum</th>
     </tr>
     <tr th:each="user : ${users}">
       <td th:text="${user.email}">example@example.org</td>
+      <td th:text="${user.firstname + ' ' + user.lastname}">Joe Joe</td>
+      <td th:text="${user.klass}">Te18D</td>
       <td th:text="${user.username}">notch</td>
       <td th:text="${#dates.format(user.registeredDate, 'dd-MM-yyyy HH:mm')}">00-00-0000 00:00</td>
       </tr>

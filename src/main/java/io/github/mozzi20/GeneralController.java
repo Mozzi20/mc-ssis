@@ -13,7 +13,6 @@ public class GeneralController {
 	@Autowired
 	private UserService userService;
 	
-	
 	@GetMapping("/")
 	String home(Model model) {
 		model.addAttribute("userCount", userService.userCount());

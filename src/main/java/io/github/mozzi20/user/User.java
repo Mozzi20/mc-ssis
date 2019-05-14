@@ -42,6 +42,12 @@ public class User implements OidcUser {
 	private String username;
 	
 	private Date registeredDate;
+	
+	private String firstname;
+	
+	private String lastname;
+	
+	private String klass;
 
 	@Enumerated(EnumType.STRING)
 	@ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
