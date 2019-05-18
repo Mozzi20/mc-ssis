@@ -7,7 +7,7 @@
 
 <body>
   <header th:replace="template :: header"></header>
-  Alla användare:
+  <p>Alla användare:</p>
   <table class="table thead-dark table-bordered">
     <tr>
       <th>Email</th>
@@ -15,6 +15,7 @@
       <th>Klass</th>
       <th>Minecraft-användarnamn</th>
       <th>Registrerings datum</th>
+      <th>Åtgärder</th>
     </tr>
     <tr th:each="user : ${users}">
       <td th:text="${user.email}">example@example.org</td>
@@ -22,8 +23,15 @@
       <td th:text="${user.klass}">Te18D</td>
       <td th:text="${user.username}">notch</td>
       <td th:text="${#dates.format(user.registeredDate, 'dd-MM-yyyy HH:mm')}">00-00-0000 00:00</td>
-      </tr>
-    </table>
-    <footer th:replace="template :: footer"></footer>
-  </body>
+      <td>
+        <form class="dropdown-item" th:action="@{/admin/ban}" method="post">
+          <input th:value="${user.sub}" type="hidden" name="userId">
+          <button th:unless="${user.banned}" class="btn btn-danger" type="submit">Bannlys</button>
+          <button th:if="${user.banned}" class="btn btn-success" type="submit">Tillåt</button>
+        </form>
+      </td>
+    </tr>
+  </table>
+  <footer th:replace="template :: footer"></footer>
+</body>
 </html>

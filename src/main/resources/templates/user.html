@@ -13,19 +13,23 @@
 <body>
   <header th:replace="template :: header"></header>
   <div class="container">
-    <h1>Profil</h1>
+    <h1>Hej <span th:text="${user.firstname}">Förnamn</span>!</h1>
     <div class="row">
       <form class="col-4" th:action="@{/user}" method="post">
-        <div class="form-group">
-          <input class="form-control" placeholder="Minecraft användarnamn" id="username" type="text" name="username"
-            th:value="${username}">
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="" type="checkbox" name="confirm" id="confirm">
-          <label for="check">Det är mitt konto och endast jag kommer att spela på det.</label>
-        </div>
-        <p th:text="${message}"></p>
-        <button class="form-control" type="submit">Spara</button>
+        <p class="alert alert-warning" th:if="${warning != null}" th:text="${warning}"></p>
+        <p class="alert alert-success" th:if="${success != null}" th:text="${success}"></p>
+        <p class="alert alert-danger" th:if="${user.banned}">Du är för tillfället bannad och kan därför inte uppdatera ditt användarnamn.</p>
+        <fieldset th:attr="disabled=${user.banned ? 'true' : null}">
+          <div class="form-group">
+            <input class="form-control" placeholder="Minecraft användarnamn" id="username" type="text" name="username"
+              th:value="${user.username}">
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="" type="checkbox" name="confirm" id="confirm">
+            <label for="check">Jag har läst och accepterar serverns <a href="/rules">regler</a>.</label>
+          </div>
+          <button class="form-control" type="submit">Spara</button>
+        </fieldset>
       </form>
       <div id="skinContainer" class="col"></div>
     </div>
@@ -44,7 +48,7 @@
         rotate: true
       }
     }, document.getElementById("skinContainer"));
-    skinRender.render(/*[[${username}]]*/);
+    skinRender.render(/*[[${user.username}]]*/);
   </script>
 </body>
 

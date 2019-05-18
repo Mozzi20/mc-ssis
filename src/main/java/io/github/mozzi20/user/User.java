@@ -48,6 +48,8 @@ public class User implements OidcUser {
 	private String lastname;
 	
 	private String klass;
+	
+	private boolean banned;
 
 	@Enumerated(EnumType.STRING)
 	@ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)

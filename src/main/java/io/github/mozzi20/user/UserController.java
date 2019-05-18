@@ -13,34 +13,33 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	
+
 	@Autowired
 	private UserService userService;
 
 	@GetMapping
-	String userPage(
-			Model model, 
-			@AuthenticationPrincipal User user
-			) {
-		model.addAttribute("username", user.getUsername());
+	String userPage(Model model, @AuthenticationPrincipal User user) {
+		model.addAttribute("user", userService.getCurrentUser());
 		return "user";
 	}
-	
+
 	@PostMapping
 	String updateUser(
-			@RequestParam String username,
-			@RequestParam(defaultValue="false") boolean confirm,
+			@RequestParam String username, 
+			@RequestParam(defaultValue = "false") boolean confirm,
 			RedirectAttributes redirect
 			) {
-		if(confirm) {
-			if(userService.usernameExists(username)) {
-				redirect.addFlashAttribute("message", "Det användarnamnet har redan registrerats.");
-			} {
-				userService.updateUsername(username);
-				redirect.addFlashAttribute("message", "Ditt användarnamn har sparats!");
+		if (!userService.getCurrentUser().isBanned()) {
+			if (confirm) {
+				if (userService.usernameExists(username)) {
+					redirect.addFlashAttribute("warning", "Det användarnamnet har redan registrerats.");
+				} else {
+					userService.updateUsername(username);
+					redirect.addFlashAttribute("success", "Ditt användarnamn har sparats!");
+				}
+			} else {
+				redirect.addFlashAttribute("warning", "Du måste acceptera våra användarvillkor.");
 			}
-		} else {
-			redirect.addFlashAttribute("message", "Du måste acceptera våra användarvillkor.");
 		}
 		return "redirect:/user";
 	}
